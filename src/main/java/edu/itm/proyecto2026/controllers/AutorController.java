@@ -1,7 +1,7 @@
 package edu.itm.proyecto2026.controllers;
 
 import edu.itm.proyecto2026.identities.Autor;
-import edu.itm.proyecto2026.services.AutorServices;
+import edu.itm.proyecto2026.services.AutorServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import java.util.List;
 public class AutorController {
 
     @Autowired
-    private AutorServices service;
+    private AutorServiceInterface service;
 
     @GetMapping("/listar")
     public ResponseEntity<List<Autor>> getAutores(){

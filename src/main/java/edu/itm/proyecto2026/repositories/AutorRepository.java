@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class AutorRepository {
+public class AutorRepository implements AutoresRepositoryInterface{
 
     @Autowired
     private AutoresDAOHelper helper;
