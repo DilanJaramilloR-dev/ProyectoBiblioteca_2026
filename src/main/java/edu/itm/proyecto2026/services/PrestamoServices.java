@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class PrestamoServices {
+public class PrestamoServices implements PrestamoServiceInterface {
 
     private final PrestamoRepository prestamoRepository;
 

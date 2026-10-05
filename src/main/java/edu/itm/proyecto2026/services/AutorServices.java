@@ -2,13 +2,14 @@ package edu.itm.proyecto2026.services;
 
 import edu.itm.proyecto2026.identities.Autor;
 import edu.itm.proyecto2026.repositories.AutorRepository;
+import edu.itm.proyecto2026.repositories.AutoresRepositoryInterface;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class AutorServices {
-    private final AutorRepository autorRepository;
+public class AutorServices  implements AutorServiceInterface{
+    private final AutoresRepositoryInterface autorRepository;
 
     public AutorServices(AutorRepository autorRepository) {
         this.autorRepository = autorRepository;

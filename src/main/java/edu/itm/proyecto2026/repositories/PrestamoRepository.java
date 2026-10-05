@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class PrestamoRepository {
+public class PrestamoRepository implements PrestamoRepositoryInterface{
 
     @Autowired
     private PrestamoDAOHelper helper;
