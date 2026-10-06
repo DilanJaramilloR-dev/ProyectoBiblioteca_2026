@@ -1,0 +1,33 @@
+package edu.itm.proyecto2026.controllers;
+
+import edu.itm.proyecto2026.identities.Autor;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
+
+public interface AutorApi {
+
+    @Operation(
+            tags = {"Autores"},
+            summary = "Obtiene la lista de autores",
+            description = "Obtiene la lista de autores registrados en la base de datos"
+            responses ={
+            @ApiResponse(
+                    responsecode = "200",
+                    description = "Lista de autores obtenidos correctamente"
+                     content = @Content(
+                         mediaType = MediaType.APPLICATION_JSON_VALUE,
+                         schema = @Schema(implementation = Autor.class)
+                         )
+
+                     )
+            }
+    )
+    @GetMapping("/listar")
+    ResponseEntity<List<Autor>> getAutores();
+}
