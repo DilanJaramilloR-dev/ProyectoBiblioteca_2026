@@ -4,23 +4,27 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AutoresDAOHelper {
-    public String listarAutores(){
-        return "Select id_autor, nombre_autor, apellido_autor, nacionalidad_autor, fecha_nacimiento from autor";
+    public String listarAutores() {
+        return "Select idAutor, nombreAutor, apellidoAutor, nacionalidadAutor, fechaNacimiento from autor";
     }
 
-    public String buscarAutor(){
-        return "Select id_autor, nombre_autor, apellido_autor, nacionalidad_autor, fecha_nacimiento from autor where id_autor = ?";
+    public String buscarAutor() {
+        return "Select idAutor, nombreAutor, apellidoAutor, nacionalidadAutor, fechaNacimiento from autor where idAutor = ?";
     }
 
-    public String insertarAutor(){
-        return  "Insert into autor (id_autor, nombre_autor, apellido_autor, nacionalidad_autor, fecha_nacimiento) values (?,?,?,?,?)";
+    public String insertarAutor() {
+        return "Insert into autor (idAutor, nombreAutor, apellidoAutor, nacionalidadAutor, fechaNacimiento) values (?,?,?,?,?)";
     }
 
-    public String actualizarAutor(){
-        return "Update autor set nombre_autor = ?, apellido_autor = ?, nacionalidad_autor = ?, fecha_nacimiento = ? where id_autor = ?";
+    public String actualizarAutor() {
+        return "update autor set nombreAutor=?, apellidoAutor=?, nacionalidadAutor=?, fechaNacimiento=? where idAutor=?";
     }
 
-    public String eliminarAutor(){
-        return "Delete from autor where id_autor = ?";
+    public String obtenerAutorPorId() {
+        return "Select idAutor, nombreAutor, apellidoAutor, nacionalidadAutor, fechaNacimiento from autor where idAutor=?";
+    }
+
+    public String eliminarAutor() {
+        return "delete from autor where idAutor=?";
     }
 }

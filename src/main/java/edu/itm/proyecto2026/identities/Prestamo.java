@@ -9,10 +9,11 @@ import java.time.LocalDate;
 @Builder
 public class Prestamo {
     private Long idPrestamo;
+    private Long idEjemplar;
     private Long idUsuario;
     private Long idBibliotecario;
-    private Long idEjemplar;
-    private LocalDate fechaPrestamo;
-    private LocalDate fechaDevolucion;
     private String estadoPrestamo;
+    private LocalDate fechaPrestamo;
+    private LocalDate fechaDevolucionPrevista;
+    private LocalDate fechaDevolucionReal;
 }

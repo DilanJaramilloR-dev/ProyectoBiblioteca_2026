@@ -2,13 +2,14 @@ package edu.itm.proyecto2026.services;
 
 import edu.itm.proyecto2026.identities.Autor;
 import edu.itm.proyecto2026.repositories.AutorRepository;
+import edu.itm.proyecto2026.repositories.AutoresRepositoryInterface;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class AutorServices {
-    private final AutorRepository autorRepository;
+public class AutorServices implements AutorServiceInterface {
+    private final AutoresRepositoryInterface autorRepository;
 
     public AutorServices(AutorRepository autorRepository) {
         this.autorRepository = autorRepository;
@@ -18,19 +19,19 @@ public class AutorServices {
         return autorRepository.getAutor();
     }
 
-    public Autor insertarAutor(Autor autor){
+    public Autor insertarAutor(Autor autor) {
         return autorRepository.insertarAutor(autor);
     }
 
-    public Autor buscarAutor(Long idAutor) {
-        return autorRepository.buscarAutor(idAutor);
+    public Autor actualizarAutor(Autor autor) {
+        return autorRepository.actualizarAutor(autor);
     }
 
-    public Autor actualizarAutor(Long idAutor, Autor autor) {
-        return autorRepository.actualizarAutor(idAutor, autor);
+    public Autor getAutor(Integer id) {
+        return autorRepository.getAutor(id);
     }
 
-    public boolean eliminarAutor(Long idAutor) {
-        return autorRepository.eliminarAutor(idAutor);
+    public boolean eliminarAutor(Integer id) {
+        return autorRepository.eliminarAutor(id);
     }
 }

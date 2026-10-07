@@ -5,54 +5,64 @@ import edu.itm.proyecto2026.utilities.Conexion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class AutorRepository {
+public class AutorRepository implements AutoresRepositoryInterface {
 
     @Autowired
     private AutoresDAOHelper helper;
 
     public List<Autor> getAutor() {
-
-        List<Autor> autor = new ArrayList<>();
-
+        List<Autor> autores = new ArrayList<>();
         Conexion conexion = new Conexion();
         Connection con = conexion.obtenerConexion();
-
 
         try {
             PreparedStatement ps = con.prepareStatement(helper.listarAutores());
             ResultSet rs = ps.executeQuery();
-            while (rs.next()){
-                Autor autor1 = Autor.builder()
-                        .idAutor(rs.getLong("id_autor"))
-                        .nombreAutor(rs.getString("nombre_autor"))
-                        .apellidoAutor(rs.getString("apellido_autor"))
-                        .nacionalidadAutor(rs.getString("nacionalidad_autor"))
-                        .fechaNacimiento(rs.getDate("fecha_nacimiento").toLocalDate())
-                        .build();
-                autor.add(autor1);
+            while (rs.next()) {
+                autores.add(mapearAutor(rs));
             }
-        }catch (SQLException sqlException){
+        } catch (SQLException sqlException) {
             sqlException.printStackTrace();
-
-        }catch (Exception exception){
+        } catch (Exception exception) {
             exception.printStackTrace();
-        }finally {
-            try {
-                con.close();
-            }catch (SQLException sqlException){
-                sqlException.printStackTrace();
+        } finally {
+            cerrarConexion(con);
+        }
+        return autores;
+    }
+
+    public Autor getAutor(Integer id) {
+        Autor autor = null;
+        Conexion conexion = new Conexion();
+        Connection con = conexion.obtenerConexion();
+
+        try {
+            PreparedStatement ps = con.prepareStatement(helper.obtenerAutorPorId());
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                autor = mapearAutor(rs);
             }
+        } catch (SQLException sqlException) {
+            sqlException.printStackTrace();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        } finally {
+            cerrarConexion(con);
         }
         return autor;
     }
 
-
-    public Autor insertarAutor(Autor autor){
+    public Autor insertarAutor(Autor autor) {
         Conexion conexion = new Conexion();
         Connection con = conexion.obtenerConexion();
 
@@ -64,77 +74,71 @@ public class AutorRepository {
             ps.setString(4, autor.getNacionalidadAutor());
             ps.setDate(5, Date.valueOf(autor.getFechaNacimiento()));
             ps.executeUpdate();
-
-        }catch (Exception exception){
+        } catch (Exception exception) {
             exception.printStackTrace();
             autor = null;
-        }finally {
-            try {
-                con.close();
-            }catch (SQLException sqlException){
-                sqlException.printStackTrace();
-            }
+        } finally {
+            cerrarConexion(con);
         }
-        return  autor;
+        return autor;
     }
 
-    public Autor buscarAutor(Long idAutor) {
+    public Autor actualizarAutor(Autor autor) {
         Conexion conexion = new Conexion();
-        try (Connection con = conexion.obtenerConexion();
-             PreparedStatement ps = con.prepareStatement(helper.buscarAutor())) {
-            ps.setLong(1, idAutor);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return mapearAutor(rs);
-                }
-            }
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-        return null;
-    }
+        Connection con = conexion.obtenerConexion();
 
-    public Autor actualizarAutor(Long idAutor, Autor autor) {
-        Conexion conexion = new Conexion();
-        try (Connection con = conexion.obtenerConexion();
-             PreparedStatement ps = con.prepareStatement(helper.actualizarAutor())) {
+        try {
+            PreparedStatement ps = con.prepareStatement(helper.actualizarAutor());
             ps.setString(1, autor.getNombreAutor());
             ps.setString(2, autor.getApellidoAutor());
             ps.setString(3, autor.getNacionalidadAutor());
             ps.setDate(4, Date.valueOf(autor.getFechaNacimiento()));
-            ps.setLong(5, idAutor);
-
-            if (ps.executeUpdate() == 1) {
-                autor.setIdAutor(idAutor);
-                return autor;
-            }
-        } catch (SQLException exception) {
+            ps.setLong(5, autor.getIdAutor());
+            ps.executeUpdate();
+        } catch (Exception exception) {
             exception.printStackTrace();
+            autor = null;
+        } finally {
+            cerrarConexion(con);
         }
-        return null;
+        return autor;
     }
 
-    public boolean eliminarAutor(Long idAutor) {
+    public boolean eliminarAutor(Integer id) {
+        boolean eliminado = false;
         Conexion conexion = new Conexion();
-        try (Connection con = conexion.obtenerConexion();
-             PreparedStatement ps = con.prepareStatement(helper.eliminarAutor())) {
-            ps.setLong(1, idAutor);
-            return ps.executeUpdate() == 1;
-        } catch (SQLException exception) {
+        Connection con = conexion.obtenerConexion();
+
+        try {
+            PreparedStatement ps = con.prepareStatement(helper.eliminarAutor());
+            ps.setInt(1, id);
+            int filas = ps.executeUpdate();
+            eliminado = filas > 0;
+        } catch (Exception exception) {
             exception.printStackTrace();
-            return false;
+        } finally {
+            cerrarConexion(con);
         }
+        return eliminado;
     }
 
     private Autor mapearAutor(ResultSet rs) throws SQLException {
         return Autor.builder()
-                .idAutor(rs.getLong("id_autor"))
-                .nombreAutor(rs.getString("nombre_autor"))
-                .apellidoAutor(rs.getString("apellido_autor"))
-                .nacionalidadAutor(rs.getString("nacionalidad_autor"))
-                .fechaNacimiento(rs.getDate("fecha_nacimiento").toLocalDate())
+                .idAutor(rs.getLong("idAutor"))
+                .nombreAutor(rs.getString("nombreAutor"))
+                .apellidoAutor(rs.getString("apellidoAutor"))
+                .nacionalidadAutor(rs.getString("nacionalidadAutor"))
+                .fechaNacimiento(rs.getDate("fechaNacimiento").toLocalDate())
                 .build();
     }
 
-             /*   String sql = "SELECT id_autor, nombre_autor, apellido_autor, nacionalidad_autor, fecha_nacimiento FROM autor";*/
+    private void cerrarConexion(Connection con) {
+        if (con != null) {
+            try {
+                con.close();
+            } catch (SQLException sqlException) {
+                sqlException.printStackTrace();
+            }
+        }
+    }
 }
