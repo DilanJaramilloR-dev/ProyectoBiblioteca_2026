@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class AutorServices  implements AutorServiceInterface{
+public class AutorServices implements AutorServiceInterface {
     private final AutoresRepositoryInterface autorRepository;
 
     public AutorServices(AutorRepository autorRepository) {
@@ -19,11 +19,11 @@ public class AutorServices  implements AutorServiceInterface{
         return autorRepository.getAutor();
     }
 
-    public Autor insertarAutor(Autor autor){
+    public Autor insertarAutor(Autor autor) {
         return autorRepository.insertarAutor(autor);
     }
 
-    public Autor actualizarAutor(Autor autor){
+    public Autor actualizarAutor(Autor autor) {
         return autorRepository.actualizarAutor(autor);
     }
 

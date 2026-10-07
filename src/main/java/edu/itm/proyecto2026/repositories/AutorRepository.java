@@ -1,25 +1,26 @@
 package edu.itm.proyecto2026.repositories;
 
 import edu.itm.proyecto2026.identities.Autor;
-import edu.itm.proyecto2026.repositories.AutoresDAOHelper;
 import edu.itm.proyecto2026.utilities.Conexion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class AutorRepository implements AutoresRepositoryInterface{
+public class AutorRepository implements AutoresRepositoryInterface {
 
     @Autowired
     private AutoresDAOHelper helper;
 
     public List<Autor> getAutor() {
-
         List<Autor> autores = new ArrayList<>();
-
         Conexion conexion = new Conexion();
         Connection con = conexion.obtenerConexion();
 
@@ -40,9 +41,7 @@ public class AutorRepository implements AutoresRepositoryInterface{
     }
 
     public Autor getAutor(Integer id) {
-
         Autor autor = null;
-
         Conexion conexion = new Conexion();
         Connection con = conexion.obtenerConexion();
 
@@ -75,7 +74,6 @@ public class AutorRepository implements AutoresRepositoryInterface{
             ps.setString(4, autor.getNacionalidadAutor());
             ps.setDate(5, Date.valueOf(autor.getFechaNacimiento()));
             ps.executeUpdate();
-
         } catch (Exception exception) {
             exception.printStackTrace();
             autor = null;
@@ -97,7 +95,6 @@ public class AutorRepository implements AutoresRepositoryInterface{
             ps.setDate(4, Date.valueOf(autor.getFechaNacimiento()));
             ps.setLong(5, autor.getIdAutor());
             ps.executeUpdate();
-
         } catch (Exception exception) {
             exception.printStackTrace();
             autor = null;

@@ -18,46 +18,47 @@ public class AutorController {
     private AutorServiceInterface service;
 
     @GetMapping("/listar")
-    public ResponseEntity<List<Autor>> getAutores(){
-        try{
-            return new ResponseEntity<> (service.getAutor(), HttpStatus.OK);
-        }catch(Exception excepcion){
+    public ResponseEntity<List<Autor>> getAutores() {
+        try {
+            return new ResponseEntity<>(service.getAutor(), HttpStatus.OK);
+        } catch (Exception excepcion) {
             excepcion.printStackTrace();
             return new ResponseEntity<>(List.of(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PostMapping("/nuevo")
-    public ResponseEntity<Autor> insertarAutor(@RequestBody Autor autor){
-        if (ObjectUtils.isEmpty(autor) || ObjectUtils.isEmpty(autor.getNombreAutor())){
-            return new ResponseEntity<>(autor,HttpStatus.BAD_REQUEST);
+    public ResponseEntity<Autor> insertarAutor(@RequestBody Autor autor) {
+        if (ObjectUtils.isEmpty(autor) || ObjectUtils.isEmpty(autor.getIdAutor())
+                || ObjectUtils.isEmpty(autor.getNombreAutor())
+                || ObjectUtils.isEmpty(autor.getFechaNacimiento())) {
+            return new ResponseEntity<>(autor, HttpStatus.BAD_REQUEST);
         }
-        try{
+        try {
             Autor a = service.insertarAutor(autor);
-            if (a!=null){
-                return new ResponseEntity<> (a, HttpStatus.OK);
-            }else{
-                return new ResponseEntity<> (autor, HttpStatus.NOT_ACCEPTABLE);
+            if (a != null) {
+                return new ResponseEntity<>(a, HttpStatus.CREATED);
             }
-        }catch(Exception excepcion){
+            return new ResponseEntity<>(autor, HttpStatus.NOT_ACCEPTABLE);
+        } catch (Exception excepcion) {
             excepcion.printStackTrace();
             return new ResponseEntity<>(autor, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @PutMapping("/actualizar")
-    public ResponseEntity<Autor> actualizarAutor(@RequestBody Autor autor){
+    public ResponseEntity<Autor> actualizarAutor(@RequestBody Autor autor) {
         if (ObjectUtils.isEmpty(autor) || ObjectUtils.isEmpty(autor.getNombreAutor())
-                || ObjectUtils.isEmpty(autor.getIdAutor())){
-            return new ResponseEntity<>(autor,HttpStatus.BAD_REQUEST);
+                || ObjectUtils.isEmpty(autor.getIdAutor())) {
+            return new ResponseEntity<>(autor, HttpStatus.BAD_REQUEST);
         }
-        try{
+        try {
             Autor a = service.actualizarAutor(autor);
-            if (a!=null){
-                return new ResponseEntity<> (a, HttpStatus.ACCEPTED);
-            }else{
-                return new ResponseEntity<> (autor, HttpStatus.NOT_ACCEPTABLE);
+            if (a != null) {
+                return new ResponseEntity<>(a, HttpStatus.ACCEPTED);
             }
-        }catch(Exception excepcion){
+            return new ResponseEntity<>(autor, HttpStatus.NOT_ACCEPTABLE);
+        } catch (Exception excepcion) {
             excepcion.printStackTrace();
             return new ResponseEntity<>(autor, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -65,13 +66,13 @@ public class AutorController {
 
     @GetMapping("/consultar/{id}")
     public ResponseEntity<Autor> getAutor(@PathVariable Integer id) {
-        try{
+        try {
             Autor autor = service.getAutor(id);
-            if (autor != null){
+            if (autor != null) {
                 return new ResponseEntity<>(autor, HttpStatus.OK);
             }
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }catch(Exception excepcion){
+        } catch (Exception excepcion) {
             excepcion.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -79,16 +80,15 @@ public class AutorController {
 
     @DeleteMapping("/eliminar/{id}")
     public ResponseEntity<Void> eliminarAutor(@PathVariable Integer id) {
-        try{
+        try {
             boolean eliminado = service.eliminarAutor(id);
-            if (eliminado){
+            if (eliminado) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             }
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }catch(Exception excepcion){
+        } catch (Exception excepcion) {
             excepcion.printStackTrace();
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
 }
