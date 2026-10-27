@@ -13,7 +13,7 @@ public class Conexion {
 
     public Connection obtenerConexion() {
         try{
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca_test","root", "biblioteca2026");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/biblioteca_test","root", "N3roNN3roN");
         }catch (SQLException ex){
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null,ex);
             System.out.println(ex);

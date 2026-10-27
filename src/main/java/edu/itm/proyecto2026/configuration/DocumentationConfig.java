@@ -17,7 +17,7 @@ public class DocumentationConfig {
                                 .title("API de ejemplo para el curso de programación en Spring Boot")
                                 .version("1.0")
                                 .description("Esto lo usamos para hacer una buena documentacion de mis APIs.")
-                                .contact(new Contact().name("el profe").email("elprofe@elprofe.com"))
+                                .contact(new Contact().name("elBuenFuturo").email("elBuenFururo@gmail.com"))
                 );
     }
 }
