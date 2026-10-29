@@ -36,5 +36,9 @@ public class PrestamoDAOHelper {
     public String consultarDisponibilidadEjemplar() {
         return "select disponibilidadEjemplar from Ejemplar where idEjemplar=?";
     }
+
+    public String insertarSancionPorRetraso() {
+        return "Insert into sancion (idPrestamo, tipoSancion, motivoSancion, fechaInicio, estadoSancion) values (?,?,?,?,?)";
+    }
 }
 

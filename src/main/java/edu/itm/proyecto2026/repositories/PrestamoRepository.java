@@ -126,6 +126,12 @@ public class PrestamoRepository implements PrestamoRepositoryInterface{
 
             actualizarDisponibilidad(con, prestamo.getIdEjemplar(), "si");
 
+            if (!"devuelto".equalsIgnoreCase(prestamo.getEstadoPrestamo())
+                    && LocalDate.now().isAfter(prestamo.getFechaDevolucionPrevista())) {
+                registrarSancionPorRetraso(con, prestamo.getIdPrestamo());
+            }
+
+
             con.commit();
 
             prestamo.setEstadoPrestamo("devuelto");
@@ -197,6 +203,16 @@ public class PrestamoRepository implements PrestamoRepositoryInterface{
         PreparedStatement ps = con.prepareStatement(helper.actualizarDisponibilidadEjemplar());
         ps.setString(1, disponibilidad);
         ps.setLong(2, idEjemplar);
+        ps.executeUpdate();
+    }
+
+    private void registrarSancionPorRetraso(Connection con, Long idPrestamo) throws SQLException {
+        PreparedStatement ps = con.prepareStatement(helper.insertarSancionPorRetraso());
+        ps.setLong(1, idPrestamo);
+        ps.setString(2, "multa");
+        ps.setString(3, "Devolución fuera del plazo acordado");
+        ps.setDate(4, Date.valueOf(LocalDate.now()));
+        ps.setString(5, "activa");
         ps.executeUpdate();
     }
 
