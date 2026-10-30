@@ -5,5 +5,14 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/biblioteca_test
     username: root
-    password: biblioteca2026
+    password: N3roNN3roN
     driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        format_sql: true
