@@ -1,6 +1,6 @@
 package edu.itm.proyecto2026.controllers;
 
-import edu.itm.proyecto2026.identities.Autor;
+import edu.itm.proyecto2026.jpaEntities.Autor;
 import edu.itm.proyecto2026.services.AutorServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/autores")
-public class AutorController {
+public class AutorController implements AutorApi {
 
     @Autowired
     private AutorServiceInterface service;
@@ -29,7 +29,7 @@ public class AutorController {
 
     @PostMapping("/nuevo")
     public ResponseEntity<Autor> insertarAutor(@RequestBody Autor autor) {
-        if (ObjectUtils.isEmpty(autor) || ObjectUtils.isEmpty(autor.getIdAutor())
+        if (ObjectUtils.isEmpty(autor)
                 || ObjectUtils.isEmpty(autor.getNombreAutor())
                 || ObjectUtils.isEmpty(autor.getFechaNacimiento())) {
             return new ResponseEntity<>(autor, HttpStatus.BAD_REQUEST);

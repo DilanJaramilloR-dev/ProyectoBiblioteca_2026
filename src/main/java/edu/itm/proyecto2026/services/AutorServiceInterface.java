@@ -1,6 +1,6 @@
 package edu.itm.proyecto2026.services;
 
-import edu.itm.proyecto2026.identities.Autor;
+import edu.itm.proyecto2026.jpaEntities.Autor;
 
 import java.util.List;
 

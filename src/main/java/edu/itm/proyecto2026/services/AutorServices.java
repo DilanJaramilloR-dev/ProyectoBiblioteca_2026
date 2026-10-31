@@ -1,37 +1,61 @@
 package edu.itm.proyecto2026.services;
 
-import edu.itm.proyecto2026.identities.Autor;
-import edu.itm.proyecto2026.repositories.AutorRepository;
-import edu.itm.proyecto2026.repositories.AutoresRepositoryInterface;
+import edu.itm.proyecto2026.jpaEntities.Autor;
+import edu.itm.proyecto2026.jpaRepositories.AutorRepository;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class AutorServices implements AutorServiceInterface {
-    private final AutoresRepositoryInterface autorRepository;
+
+    private final AutorRepository autorRepository;
 
     public AutorServices(AutorRepository autorRepository) {
         this.autorRepository = autorRepository;
     }
 
     public List<Autor> getAutor() {
-        return autorRepository.getAutor();
+        return autorRepository.findAll();
     }
 
     public Autor insertarAutor(Autor autor) {
-        return autorRepository.insertarAutor(autor);
+        try {
+            autor.setIdAutor(null);
+            return autorRepository.save(autor);
+        } catch (DataAccessException exception) {
+            exception.printStackTrace();
+            return null;
+        }
     }
 
     public Autor actualizarAutor(Autor autor) {
-        return autorRepository.actualizarAutor(autor);
+        try {
+            if (!autorRepository.existsById(autor.getIdAutor())) {
+                return null;
+            }
+            return autorRepository.save(autor);
+        } catch (DataAccessException exception) {
+            exception.printStackTrace();
+            return null;
+        }
     }
 
     public Autor getAutor(Integer id) {
-        return autorRepository.getAutor(id);
+        return autorRepository.findById(id).orElse(null);
     }
 
     public boolean eliminarAutor(Integer id) {
-        return autorRepository.eliminarAutor(id);
+        try {
+            if (!autorRepository.existsById(id)) {
+                return false;
+            }
+            autorRepository.deleteById(id);
+            return true;
+        } catch (DataAccessException exception) {
+            exception.printStackTrace();
+            return false;
+        }
     }
 }

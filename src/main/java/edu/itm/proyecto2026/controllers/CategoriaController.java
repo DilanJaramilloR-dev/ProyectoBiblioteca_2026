@@ -1,6 +1,6 @@
 package edu.itm.proyecto2026.controllers;
 
-import edu.itm.proyecto2026.identities.Categoria;
+import edu.itm.proyecto2026.jpaEntities.Categoria;
 import edu.itm.proyecto2026.services.CategoriaServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/categorias")
-public class CategoriaController {
+public class CategoriaController implements CategoriaApi {
 
     @Autowired
     private CategoriaServiceInterface service;
