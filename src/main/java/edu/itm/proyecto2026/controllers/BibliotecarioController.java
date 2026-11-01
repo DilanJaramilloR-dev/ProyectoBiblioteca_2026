@@ -1,6 +1,6 @@
 package edu.itm.proyecto2026.controllers;
 
-import edu.itm.proyecto2026.identities.Bibliotecario;
+import edu.itm.proyecto2026.jpaEntities.Bibliotecario;
 import edu.itm.proyecto2026.services.BibliotecarioServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/bibliotecarios")
-public class BibliotecarioController {
+public class BibliotecarioController implements BibliotecarioApi {
 
     @Autowired
     private BibliotecarioServiceInterface service;
@@ -30,10 +30,11 @@ public class BibliotecarioController {
     @PostMapping("/nuevo")
     public ResponseEntity<Bibliotecario> insertarBibliotecario(@RequestBody Bibliotecario bibliotecario) {
         if (ObjectUtils.isEmpty(bibliotecario)
-                || ObjectUtils.isEmpty(bibliotecario.getNombrePersona())
-                || ObjectUtils.isEmpty(bibliotecario.getApellidoPersona())
-                || ObjectUtils.isEmpty(bibliotecario.getCorreoPersona())
-                || ObjectUtils.isEmpty(bibliotecario.getTelefonoPersona())
+                || ObjectUtils.isEmpty(bibliotecario.getPersona())
+                || ObjectUtils.isEmpty(bibliotecario.getPersona().getNombrePersona())
+                || ObjectUtils.isEmpty(bibliotecario.getPersona().getApellidoPersona())
+                || ObjectUtils.isEmpty(bibliotecario.getPersona().getCorreoPersona())
+                || ObjectUtils.isEmpty(bibliotecario.getPersona().getTelefonoPersona())
                 || ObjectUtils.isEmpty(bibliotecario.getUsuarioLoginBibliotecario())
                 || ObjectUtils.isEmpty(bibliotecario.getContrasenaBibliotecario())
                 || ObjectUtils.isEmpty(bibliotecario.getDocumentoBibliotecario())) {
@@ -55,10 +56,11 @@ public class BibliotecarioController {
     public ResponseEntity<Bibliotecario> actualizarBibliotecario(@RequestBody Bibliotecario bibliotecario) {
         if (ObjectUtils.isEmpty(bibliotecario)
                 || ObjectUtils.isEmpty(bibliotecario.getIdBibliotecario())
-                || ObjectUtils.isEmpty(bibliotecario.getNombrePersona())
-                || ObjectUtils.isEmpty(bibliotecario.getApellidoPersona())
-                || ObjectUtils.isEmpty(bibliotecario.getCorreoPersona())
-                || ObjectUtils.isEmpty(bibliotecario.getTelefonoPersona())
+                || ObjectUtils.isEmpty(bibliotecario.getPersona())
+                || ObjectUtils.isEmpty(bibliotecario.getPersona().getNombrePersona())
+                || ObjectUtils.isEmpty(bibliotecario.getPersona().getApellidoPersona())
+                || ObjectUtils.isEmpty(bibliotecario.getPersona().getCorreoPersona())
+                || ObjectUtils.isEmpty(bibliotecario.getPersona().getTelefonoPersona())
                 || ObjectUtils.isEmpty(bibliotecario.getUsuarioLoginBibliotecario())
                 || ObjectUtils.isEmpty(bibliotecario.getDocumentoBibliotecario())) {
             return new ResponseEntity<>(bibliotecario, HttpStatus.BAD_REQUEST);

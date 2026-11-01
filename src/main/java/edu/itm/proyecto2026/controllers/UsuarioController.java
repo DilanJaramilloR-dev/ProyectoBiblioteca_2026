@@ -1,6 +1,6 @@
 package edu.itm.proyecto2026.controllers;
 
-import edu.itm.proyecto2026.identities.Usuario;
+import edu.itm.proyecto2026.jpaEntities.Usuario;
 import edu.itm.proyecto2026.services.UsuarioServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/usuarios")
-public class UsuarioController {
+public class UsuarioController implements UsuarioApi {
 
     @Autowired
     private UsuarioServiceInterface service;
@@ -30,10 +30,11 @@ public class UsuarioController {
     @PostMapping("/nuevo")
     public ResponseEntity<Usuario> insertarUsuario(@RequestBody Usuario usuario) {
         if (ObjectUtils.isEmpty(usuario)
-                || ObjectUtils.isEmpty(usuario.getNombrePersona())
-                || ObjectUtils.isEmpty(usuario.getApellidoPersona())
-                || ObjectUtils.isEmpty(usuario.getCorreoPersona())
-                || ObjectUtils.isEmpty(usuario.getTelefonoPersona())) {
+                || ObjectUtils.isEmpty(usuario.getPersona())
+                || ObjectUtils.isEmpty(usuario.getPersona().getNombrePersona())
+                || ObjectUtils.isEmpty(usuario.getPersona().getApellidoPersona())
+                || ObjectUtils.isEmpty(usuario.getPersona().getCorreoPersona())
+                || ObjectUtils.isEmpty(usuario.getPersona().getTelefonoPersona())) {
             return new ResponseEntity<>(usuario, HttpStatus.BAD_REQUEST);
         }
         try {
@@ -52,10 +53,11 @@ public class UsuarioController {
     public ResponseEntity<Usuario> actualizarUsuario(@RequestBody Usuario usuario) {
         if (ObjectUtils.isEmpty(usuario)
                 || ObjectUtils.isEmpty(usuario.getIdUsuario())
-                || ObjectUtils.isEmpty(usuario.getNombrePersona())
-                || ObjectUtils.isEmpty(usuario.getApellidoPersona())
-                || ObjectUtils.isEmpty(usuario.getCorreoPersona())
-                || ObjectUtils.isEmpty(usuario.getTelefonoPersona())) {
+                || ObjectUtils.isEmpty(usuario.getPersona())
+                || ObjectUtils.isEmpty(usuario.getPersona().getNombrePersona())
+                || ObjectUtils.isEmpty(usuario.getPersona().getApellidoPersona())
+                || ObjectUtils.isEmpty(usuario.getPersona().getCorreoPersona())
+                || ObjectUtils.isEmpty(usuario.getPersona().getTelefonoPersona())) {
             return new ResponseEntity<>(usuario, HttpStatus.BAD_REQUEST);
         }
         try {
