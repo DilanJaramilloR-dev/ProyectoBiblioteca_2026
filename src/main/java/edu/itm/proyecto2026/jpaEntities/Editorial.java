@@ -11,6 +11,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.OneToMany;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+import java.util.List;
+
 @Entity
 @Table(name = "editorial")
 @Data
@@ -35,4 +42,10 @@ public class Editorial {
 
     @Column(name = "telefonoEditorial")
     private String telefonoEditorial;
+
+    @OneToMany(mappedBy = "editorial")
+    @JsonIgnore
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private List<Libro> libros;
 }

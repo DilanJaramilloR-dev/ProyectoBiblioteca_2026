@@ -1,6 +1,6 @@
 package edu.itm.proyecto2026.services;
 
-import edu.itm.proyecto2026.identities.Libro;
+import edu.itm.proyecto2026.jpaEntities.Libro;
 
 import java.util.List;
 

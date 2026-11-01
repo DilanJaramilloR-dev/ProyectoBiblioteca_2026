@@ -1,6 +1,6 @@
 package edu.itm.proyecto2026.controllers;
 
-import edu.itm.proyecto2026.identities.Libro;
+import edu.itm.proyecto2026.jpaEntities.Libro;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -22,7 +22,7 @@ public interface LibroApi {
     @Operation(
             tags = {"Libros"},
             summary = "Obtiene la lista de libros",
-            description = "Obtiene la lista de libros registrados en la base de datos, con los ids de sus autores.",
+            description = "Obtiene la lista de libros registrados en la base de datos, con su categoría, su editorial y sus autores.",
             responses = {
                     @ApiResponse(
                             responseCode = "200",
@@ -48,7 +48,7 @@ public interface LibroApi {
     @Operation(
             tags = {"Libros"},
             summary = "Crea un libro",
-            description = "Crea un nuevo libro con sus autores (idsAutores) en una sola transacción.",
+            description = "Crea un nuevo libro con su categoría, su editorial y sus autores (basta con enviar el id de cada uno) en una sola transacción.",
             responses = {
                     @ApiResponse(
                             responseCode = "201",

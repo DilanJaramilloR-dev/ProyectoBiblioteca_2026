@@ -10,6 +10,12 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.ManyToMany;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+import java.util.List;
 
 import java.time.LocalDate;
 
@@ -37,4 +43,10 @@ public class Autor {
 
     @Column(name = "fechaNacimiento")
     private LocalDate fechaNacimiento;
+
+    @ManyToMany(mappedBy = "autores")
+    @JsonIgnore
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private List<Libro> libros;
 }

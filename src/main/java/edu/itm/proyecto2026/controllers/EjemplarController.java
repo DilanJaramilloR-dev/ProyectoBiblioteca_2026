@@ -1,6 +1,6 @@
 package edu.itm.proyecto2026.controllers;
 
-import edu.itm.proyecto2026.identities.Ejemplar;
+import edu.itm.proyecto2026.jpaEntities.Ejemplar;
 import edu.itm.proyecto2026.services.EjemplarServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/ejemplares")
-public class EjemplarController {
+public class EjemplarController implements EjemplarApi {
 
     @Autowired
     private EjemplarServiceInterface service;
@@ -30,7 +30,8 @@ public class EjemplarController {
     @PostMapping("/nuevo")
     public ResponseEntity<Ejemplar> insertarEjemplar(@RequestBody Ejemplar ejemplar) {
         if (ObjectUtils.isEmpty(ejemplar)
-                || ObjectUtils.isEmpty(ejemplar.getIdLibro())
+                || ObjectUtils.isEmpty(ejemplar.getLibro())
+                || ObjectUtils.isEmpty(ejemplar.getLibro().getIdLibro())
                 || ObjectUtils.isEmpty(ejemplar.getCodigoInventario())
                 || ObjectUtils.isEmpty(ejemplar.getFechaAdquisicion())
                 || ObjectUtils.isEmpty(ejemplar.getEstadoEjemplar())) {
@@ -52,7 +53,8 @@ public class EjemplarController {
     public ResponseEntity<Ejemplar> actualizarEjemplar(@RequestBody Ejemplar ejemplar) {
         if (ObjectUtils.isEmpty(ejemplar)
                 || ObjectUtils.isEmpty(ejemplar.getIdEjemplar())
-                || ObjectUtils.isEmpty(ejemplar.getIdLibro())
+                || ObjectUtils.isEmpty(ejemplar.getLibro())
+                || ObjectUtils.isEmpty(ejemplar.getLibro().getIdLibro())
                 || ObjectUtils.isEmpty(ejemplar.getCodigoInventario())
                 || ObjectUtils.isEmpty(ejemplar.getFechaAdquisicion())
                 || ObjectUtils.isEmpty(ejemplar.getEstadoEjemplar())) {

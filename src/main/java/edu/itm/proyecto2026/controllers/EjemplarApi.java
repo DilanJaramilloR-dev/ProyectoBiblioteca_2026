@@ -1,6 +1,6 @@
 package edu.itm.proyecto2026.controllers;
 
-import edu.itm.proyecto2026.identities.Ejemplar;
+import edu.itm.proyecto2026.jpaEntities.Ejemplar;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;

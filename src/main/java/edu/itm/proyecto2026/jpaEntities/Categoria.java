@@ -11,6 +11,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.OneToMany;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+import java.util.List;
+
 @Entity
 @Table(name = "categoria")
 @Data
@@ -32,4 +39,10 @@ public class Categoria {
 
     @Column(name = "estadoCategoria")
     private String estadoCategoria;
+
+    @OneToMany(mappedBy = "categoria")
+    @JsonIgnore
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private List<Libro> libros;
 }
