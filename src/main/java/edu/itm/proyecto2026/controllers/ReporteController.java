@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/reportes")
-public class ReporteController {
+public class ReporteController implements ReporteApi {
 
     @Autowired
     private ReporteServiceInterface service;

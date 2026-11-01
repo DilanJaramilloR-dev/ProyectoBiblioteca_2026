@@ -1,6 +1,6 @@
 package edu.itm.proyecto2026.controllers;
 
-import edu.itm.proyecto2026.identities.Sancion;
+import edu.itm.proyecto2026.jpaEntities.Sancion;
 import edu.itm.proyecto2026.services.SancionServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/sanciones")
-public class SancionController {
+public class SancionController implements SancionApi {
 
     @Autowired
     private SancionServiceInterface service;
@@ -30,7 +30,8 @@ public class SancionController {
     @PostMapping("/nuevo")
     public ResponseEntity<Sancion> insertarSancion(@RequestBody Sancion sancion) {
         if (ObjectUtils.isEmpty(sancion)
-                || ObjectUtils.isEmpty(sancion.getIdPrestamo())
+                || ObjectUtils.isEmpty(sancion.getPrestamo())
+                || ObjectUtils.isEmpty(sancion.getPrestamo().getIdPrestamo())
                 || ObjectUtils.isEmpty(sancion.getTipoSancion())) {
             return new ResponseEntity<>(sancion, HttpStatus.BAD_REQUEST);
         }

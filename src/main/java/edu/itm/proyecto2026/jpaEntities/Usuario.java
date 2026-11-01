@@ -15,6 +15,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.OneToMany;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+import java.util.List;
 
 @Entity
 @Table(name = "usuario")
@@ -38,4 +44,10 @@ public class Usuario {
 
     @Column(name = "fechaRegistroUsuario")
     private LocalDate fechaRegistroUsuario;
+
+    @OneToMany(mappedBy = "usuario")
+    @JsonIgnore
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private List<Prestamo> prestamos;
 }
