@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/catalogo")
-public class CatalogoController {
+public class CatalogoController implements CatalogoApi {
 
     @Autowired
     private CatalogoServiceInterface service;

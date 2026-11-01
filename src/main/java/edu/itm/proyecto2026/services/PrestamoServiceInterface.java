@@ -1,6 +1,6 @@
 package edu.itm.proyecto2026.services;
 
-import edu.itm.proyecto2026.identities.Prestamo;
+import edu.itm.proyecto2026.jpaEntities.Prestamo;
 
 import java.util.List;
 

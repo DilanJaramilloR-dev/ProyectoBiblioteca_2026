@@ -1,6 +1,6 @@
 package edu.itm.proyecto2026.controllers;
 
-import edu.itm.proyecto2026.identities.Editorial;
+import edu.itm.proyecto2026.jpaEntities.Editorial;
 import edu.itm.proyecto2026.services.EditorialServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/editoriales")
-public class EditorialController {
+public class EditorialController implements EditorialApi {
 
     @Autowired
     private EditorialServiceInterface service;

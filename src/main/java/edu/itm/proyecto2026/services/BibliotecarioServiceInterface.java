@@ -1,6 +1,6 @@
 package edu.itm.proyecto2026.services;
 
-import edu.itm.proyecto2026.identities.Bibliotecario;
+import edu.itm.proyecto2026.jpaEntities.Bibliotecario;
 
 import java.util.List;
 

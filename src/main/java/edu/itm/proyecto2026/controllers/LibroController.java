@@ -1,6 +1,6 @@
 package edu.itm.proyecto2026.controllers;
 
-import edu.itm.proyecto2026.identities.Libro;
+import edu.itm.proyecto2026.jpaEntities.Libro;
 import edu.itm.proyecto2026.services.LibroServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/libros")
-public class LibroController {
+public class LibroController implements LibroApi {
 
     @Autowired
     private LibroServiceInterface service;
@@ -30,12 +30,14 @@ public class LibroController {
     @PostMapping("/nuevo")
     public ResponseEntity<Libro> insertarLibro(@RequestBody Libro libro) {
         if (ObjectUtils.isEmpty(libro)
-                || ObjectUtils.isEmpty(libro.getIdCategoria())
-                || ObjectUtils.isEmpty(libro.getIdEditorial())
+                || ObjectUtils.isEmpty(libro.getCategoria())
+                || ObjectUtils.isEmpty(libro.getCategoria().getIdCategoria())
+                || ObjectUtils.isEmpty(libro.getEditorial())
+                || ObjectUtils.isEmpty(libro.getEditorial().getIdEditorial())
                 || ObjectUtils.isEmpty(libro.getTituloLibro())
                 || ObjectUtils.isEmpty(libro.getIsbnLibro())
                 || ObjectUtils.isEmpty(libro.getAnioPublicacionLibro())
-                || ObjectUtils.isEmpty(libro.getIdsAutores())) {
+                || ObjectUtils.isEmpty(libro.getAutores())) {
             return new ResponseEntity<>(libro, HttpStatus.BAD_REQUEST);
         }
         try {
@@ -54,12 +56,14 @@ public class LibroController {
     public ResponseEntity<Libro> actualizarLibro(@RequestBody Libro libro) {
         if (ObjectUtils.isEmpty(libro)
                 || ObjectUtils.isEmpty(libro.getIdLibro())
-                || ObjectUtils.isEmpty(libro.getIdCategoria())
-                || ObjectUtils.isEmpty(libro.getIdEditorial())
+                || ObjectUtils.isEmpty(libro.getCategoria())
+                || ObjectUtils.isEmpty(libro.getCategoria().getIdCategoria())
+                || ObjectUtils.isEmpty(libro.getEditorial())
+                || ObjectUtils.isEmpty(libro.getEditorial().getIdEditorial())
                 || ObjectUtils.isEmpty(libro.getTituloLibro())
                 || ObjectUtils.isEmpty(libro.getIsbnLibro())
                 || ObjectUtils.isEmpty(libro.getAnioPublicacionLibro())
-                || ObjectUtils.isEmpty(libro.getIdsAutores())) {
+                || ObjectUtils.isEmpty(libro.getAutores())) {
             return new ResponseEntity<>(libro, HttpStatus.BAD_REQUEST);
         }
         try {

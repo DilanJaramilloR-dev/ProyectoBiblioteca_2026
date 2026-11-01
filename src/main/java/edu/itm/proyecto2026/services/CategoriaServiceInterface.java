@@ -1,6 +1,6 @@
 package edu.itm.proyecto2026.services;
 
-import edu.itm.proyecto2026.identities.Categoria;
+import edu.itm.proyecto2026.jpaEntities.Categoria;
 
 import java.util.List;
 

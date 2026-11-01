@@ -1,7 +1,7 @@
 package edu.itm.proyecto2026.controllers;
 
-import edu.itm.proyecto2026.identities.Prestamo;
-import edu.itm.proyecto2026.services.PrestamoServices;
+import edu.itm.proyecto2026.jpaEntities.Prestamo;
+import edu.itm.proyecto2026.services.PrestamoServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,10 +12,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/prestamos")
-public class PrestamoController {
+public class PrestamoController implements PrestamoApi {
 
     @Autowired
-    private PrestamoServices service;
+    private PrestamoServiceInterface service;
 
     @GetMapping("/listar")
     public ResponseEntity<List<Prestamo>> getPrestamos() {
@@ -44,8 +44,13 @@ public class PrestamoController {
     // crea el préstamo y deja el ejemplar como no disponible
     @PostMapping("/nuevo")
     public ResponseEntity<Prestamo> insertarPrestamo(@RequestBody Prestamo prestamo) {
-        if (ObjectUtils.isEmpty(prestamo) || ObjectUtils.isEmpty(prestamo.getIdEjemplar())
-                || ObjectUtils.isEmpty(prestamo.getIdUsuario()) || ObjectUtils.isEmpty(prestamo.getIdBibliotecario())) {
+        if (ObjectUtils.isEmpty(prestamo)
+                || ObjectUtils.isEmpty(prestamo.getEjemplar())
+                || ObjectUtils.isEmpty(prestamo.getEjemplar().getIdEjemplar())
+                || ObjectUtils.isEmpty(prestamo.getUsuario())
+                || ObjectUtils.isEmpty(prestamo.getUsuario().getIdUsuario())
+                || ObjectUtils.isEmpty(prestamo.getBibliotecario())
+                || ObjectUtils.isEmpty(prestamo.getBibliotecario().getIdBibliotecario())) {
             return new ResponseEntity<>(prestamo, HttpStatus.BAD_REQUEST);
         }
         try {

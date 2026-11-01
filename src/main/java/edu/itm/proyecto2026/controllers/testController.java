@@ -1,6 +1,6 @@
 package edu.itm.proyecto2026.controllers;
 
-import edu.itm.proyecto2026.identities.Autor;
+import edu.itm.proyecto2026.jpaEntities.Autor;
 import edu.itm.proyecto2026.services.AutorServices;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,6 +1,6 @@
 package edu.itm.proyecto2026.services;
 
-import edu.itm.proyecto2026.identities.Sancion;
+import edu.itm.proyecto2026.jpaEntities.Sancion;
 
 import java.util.List;
 

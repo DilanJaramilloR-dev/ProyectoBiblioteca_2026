@@ -1,6 +1,6 @@
 package edu.itm.proyecto2026.services;
 
-import edu.itm.proyecto2026.identities.Usuario;
+import edu.itm.proyecto2026.jpaEntities.Usuario;
 
 import java.util.List;
 
